@@ -1,19 +1,14 @@
-FROM golang:latest
+FROM golang:1.15.7
 
-ENV GO111MODULE=on
 
-WORKDIR /app
+RUN mkdir $HOME/goproject
 
-COPY go.mod .
+WORKDIR $HOME/goproject
 
-COPY go.sum .
+COPY . $HOME/goproject
 
-RUN go mod download
-
-COPY . .
 
 EXPOSE 8080
 
-RUN go build -o app
 
-CMD ["./app"]
+CMD ["go", "run", "main.go", "domain.go", "endpoint.go", "reqresp.go", "service.go", "transport.go"]
